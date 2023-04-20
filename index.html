@@ -11,38 +11,51 @@
   </head>
   <body>
     <header>
-      <p>Ching Han's Calculator</p>
+      <h1>Ching Han's Calculator</h1>
     </header>
     <main>
-      <div class="screen">
-        <p id="currentOperationScreen">0</p>
-      </div>
-      <div class="buttons">
-        <button id="clearBtn">AC</button>
-        <button id="deleteBtn">CE</button>
+      <div class="calculator">
+        <div class="screen">
+          <p id="currentOperationScreen">0</p>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-red span-2" id="clearBtn">AC</button>
+          <button class="btn btn-blue span-2" id="deleteBtn">CE</button>
 
-        <button data-number>7</button>
-        <button data-number>8</button>
-        <button data-number>9</button>
-        <button data-operator>/</button>
+          <button class="btn" data-number>7</button>
+          <button class="btn" data-number>8</button>
+          <button class="btn" data-number>9</button>
+          <button class="btn" data-operator>/</button>
 
-        <button data-number>4</button>
-        <button data-number>5</button>
-        <button data-number>6</button>
-        <button data-operator>*</button>
+          <button class="btn" data-number>4</button>
+          <button class="btn" data-number>5</button>
+          <button class="btn" data-number>6</button>
+          <button class="btn" data-operator>*</button>
 
-        <button data-number>3</button>
-        <button data-number>2</button>
-        <button data-number>1</button>
-        <button data-operator>+</button>
+          <button class="btn" data-number>3</button>
+          <button class="btn" data-number>2</button>
+          <button class="btn" data-number>1</button>
+          <button class="btn" data-operator>+</button>
 
-        <button data-number>0</button>
-        <button data-number>.</button>
-        <button id="equalsBtn">=</button>
-        <button data-operator>-</button>
+          <button class="btn" data-number>0</button>
+          <button class="btn" data-number>.</button>
+          <button class="btn" id="equalsBtn">=</button>
+          <button class="btn" data-operator>-</button>
+        </div>
       </div>
     </main>
-    <footer></footer>
+    <footer>
+      <p id="copyright">
+        Copyright <span>&copy</span>
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Ching Han
+      </p>
+      <a href="https://github.com/ChingHanHuang" target="_blank">
+        <i class="fa fa-github"></i>
+      </a>
+    </footer>
 
     <script type="text/javascript" src="./script.js"></script>
   </body>
