@@ -1,7 +1,8 @@
 let firstOperand = "";
 let secondOperand = "";
 let currentOperator = null;
-const inputNumberLimitation = 14;
+let shouldResetScreen = false;
+const inputNumberLimit = 14;
 
 const warningMsg = document.getElementById("warningMsg");
 const clearBtn = document.getElementById("clearBtn");
@@ -30,6 +31,7 @@ function clearOperation() {
   firstOperand = "";
   secondOperand = "";
   currentOperator = null;
+  removeBtnsActiveMode();
 }
 
 function deleteEntry() {
@@ -45,33 +47,39 @@ function deleteEntry() {
 }
 
 function appendNumber(number) {
-  if (exceedLimitationDisplay()) return;
-
-  if (
-    currentOperationScreen.textContent === "0" ||
-    (currentOperator !== null && secondOperand == "")
-  )
-    currentOperationScreen.textContent = "";
-
+  if (exceedInputLimitDisplay()) return;
+  if (currentOperationScreen.textContent === "0" || shouldResetScreen)
+    resetScreen();
   currentOperationScreen.textContent += number;
-
-  if (currentOperator === null)
-    firstOperand = currentOperationScreen.textContent;
-  else secondOperand = currentOperationScreen.textContent;
 }
 
-function exceedLimitationDisplay() {
-  if (currentOperationScreen.innerText.length > inputNumberLimitation) {
+function exceedInputLimitDisplay() {
+  if (currentOperationScreen.innerText.length > inputNumberLimit) {
     warningMsg.innerText = "The numbers have reached the limit of the display.";
     return true;
   }
   return false;
 }
 
+function exceedResultDisplay() {
+  if (currentOperationScreen.innerText.length > inputNumberLimit) {
+    currentOperationScreen.innerText = Number(
+      currentOperationScreen.innerText
+    ).toExponential(inputNumberLimit - 5);
+  }
+}
+
+function resetScreen() {
+  currentOperationScreen.textContent = "";
+  shouldResetScreen = false;
+}
+
 function setOperation(operatorBtn) {
   removeBtnsActiveMode();
+  firstOperand = currentOperationScreen.textContent;
   currentOperator = operatorBtn.textContent;
   addBtnActiveMode(operatorBtn);
+  shouldResetScreen = true;
 }
 
 function removeBtnsActiveMode() {
@@ -83,15 +91,20 @@ function addBtnActiveMode(operatorBtn) {
 }
 
 function evaluate() {
-  if (currentOperator === null) return;
-  if (firstOperand === "") firstOperand = "0";
-  if (secondOperand === "") secondOperand = firstOperand;
+  console.log(firstOperand);
+  console.log(secondOperand);
+  console.log(currentOperator);
+
+  if (currentOperator === null || shouldResetScreen) return;
+
+  secondOperand = currentOperationScreen.textContent;
 
   let operationResult = operate(currentOperator, firstOperand, secondOperand);
   if (operationResult === null) currentOperationScreen.textContent = "Error";
   else currentOperationScreen.textContent = operationResult;
 
-  firstOperand = operationResult;
+  currentOperator = null;
+  exceedResultDisplay();
 }
 
 function add(a, b) {
