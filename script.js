@@ -12,6 +12,7 @@ const currentOperationScreen = document.getElementById(
 );
 const numberBtns = document.querySelectorAll("[data-number]");
 const operatorBtns = document.querySelectorAll("[data-operator]");
+const pointBtn = document.getElementById("pointBtn");
 const equalsBtn = document.getElementById("equalsBtn");
 
 clearBtn.addEventListener("click", clearOperation);
@@ -24,6 +25,7 @@ operatorBtns.forEach((button) => {
   button.addEventListener("click", () => setOperation(button));
 });
 
+pointBtn.addEventListener("click", appendPoint);
 equalsBtn.addEventListener("click", evaluate);
 
 function clearOperation() {
@@ -90,11 +92,15 @@ function addBtnActiveMode(operatorBtn) {
   operatorBtn.classList.add("active");
 }
 
-function evaluate() {
-  console.log(firstOperand);
-  console.log(secondOperand);
-  console.log(currentOperator);
+function appendPoint() {
+  if (shouldResetScreen) resetScreen();
+  if (currentOperationScreen.textContent === "")
+    currentOperationScreen.textContent = "0";
+  if (currentOperationScreen.textContent.includes(".")) return;
+  currentOperationScreen.textContent += ".";
+}
 
+function evaluate() {
   if (currentOperator === null || shouldResetScreen) return;
 
   secondOperand = currentOperationScreen.textContent;
@@ -105,6 +111,7 @@ function evaluate() {
 
   currentOperator = null;
   exceedResultDisplay();
+  removeBtnsActiveMode();
 }
 
 function add(a, b) {

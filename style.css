@@ -101,6 +101,7 @@ button.active {
 
 .btn:hover {
     cursor: pointer;
+    background-color: var(--btn-active);
 }
 
 .btn-red {
