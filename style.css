@@ -3,6 +3,7 @@
     --btn-border: black;
     --btn-red: lightcoral;
     --btn-blue: lightskyblue;
+    --btn-active: #ffd449;
 }
 
 *,
@@ -21,6 +22,7 @@ html {
 main {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 header {
@@ -45,8 +47,12 @@ main {
     justify-content: center;
 }
 
+#warningMsg {
+    height: 20px;
+}
+
 .calculator {
-    margin-top: 50px;
+    margin-top: 30px;
     width: 500px;
     background-color: var(--calculator);
     border: 2px solid black;
@@ -66,7 +72,7 @@ main {
 #currentOperationScreen {
     background-color: #ffffff;
     margin: 10px;
-    font-size: 50px;
+    font-size: 49px;
     width: 100%;
     text-align: right;
 }
@@ -78,6 +84,10 @@ main {
     gap: 5px;
 }
 
+button.active {
+    background-color: var(--btn-active);
+}
+
 .span-2 {
     grid-column: span 2;
 }
@@ -86,7 +96,7 @@ main {
     padding: 20px;
     border: 2px solid var(--btn-border);
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .btn:hover {

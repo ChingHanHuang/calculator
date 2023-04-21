@@ -1,7 +1,9 @@
 let firstOperand = "";
 let secondOperand = "";
 let currentOperator = null;
+const inputNumberLimitation = 14;
 
+const warningMsg = document.getElementById("warningMsg");
 const clearBtn = document.getElementById("clearBtn");
 const deleteBtn = document.getElementById("deleteBtn");
 const currentOperationScreen = document.getElementById(
@@ -18,7 +20,7 @@ numberBtns.forEach((button) => {
 });
 
 operatorBtns.forEach((button) => {
-  button.addEventListener("click", () => setOperation(button.textContent));
+  button.addEventListener("click", () => setOperation(button));
 });
 
 equalsBtn.addEventListener("click", evaluate);
@@ -43,6 +45,8 @@ function deleteEntry() {
 }
 
 function appendNumber(number) {
+  if (exceedLimitationDisplay()) return;
+
   if (
     currentOperationScreen.textContent === "0" ||
     (currentOperator !== null && secondOperand == "")
@@ -56,8 +60,26 @@ function appendNumber(number) {
   else secondOperand = currentOperationScreen.textContent;
 }
 
-function setOperation(operator) {
-  currentOperator = operator;
+function exceedLimitationDisplay() {
+  if (currentOperationScreen.innerText.length > inputNumberLimitation) {
+    warningMsg.innerText = "The numbers have reached the limit of the display.";
+    return true;
+  }
+  return false;
+}
+
+function setOperation(operatorBtn) {
+  removeBtnsActiveMode();
+  currentOperator = operatorBtn.textContent;
+  addBtnActiveMode(operatorBtn);
+}
+
+function removeBtnsActiveMode() {
+  operatorBtns.forEach((btn) => btn.classList.remove("active"));
+}
+
+function addBtnActiveMode(operatorBtn) {
+  operatorBtn.classList.add("active");
 }
 
 function evaluate() {
